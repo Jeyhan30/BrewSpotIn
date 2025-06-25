@@ -6,7 +6,7 @@ import com.google.firebase.firestore.ServerTimestamp
 import java.util.Date
 
 data class AdminHistoryRecord(
-    @DocumentId // Ini akan menjadi ID dokumen dari 'adminhistory' (misalnya ID reservasi)
+    @DocumentId
     val id: String = "", // Disarankan pakai ID reservasi untuk memudahkan lookup
     val reservationId: String = "", // <-- reservId (dari history user view)
     val dateIn: String = "",          // <-- date (dari reservations user view)
@@ -17,8 +17,4 @@ data class AdminHistoryRecord(
     val tableIn: String = "",         // <-- selectedTables (dari reservations user view, digabung string)
     @ServerTimestamp // Timestamp kapan record adminhistory ini dibuat
     val adminTimestamp: Date? = null
-    // Tambahan field untuk referensi dan debugging
-    // val userHistoryId: String = "" // ID dokumen dari history user view
-    // val cafeId: String = ""
-    // val cafeName: String = ""
 )
