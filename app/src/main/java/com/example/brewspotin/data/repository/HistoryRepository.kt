@@ -2,9 +2,9 @@
 package com.example.brewspotin.data.repository
 
 import android.util.Log
-import com.example.brewspotin.data.model.ReservationRecord // Import
-import com.example.brewspotin.data.model.UserHistoryRecord // Import
-import com.example.brewspotin.data.model.AdminHistoryRecord // Import
+import com.example.brewspotin.data.model.ReservationRecord
+import com.example.brewspotin.data.model.UserHistoryRecord
+import com.example.brewspotin.data.model.AdminHistoryRecord
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.FirebaseFirestoreException
 import kotlinx.coroutines.flow.Flow
@@ -33,7 +33,7 @@ class HistoryRepository(
     // Fungsi untuk mendapatkan semua UserHistoryRecord dari koleksi 'history' (User View)
     fun getAllUserHistoryRecords(): Flow<List<UserHistoryRecord>> = flow {
         try {
-            val snapshot = firestore.collection("history") // Koleksi 'history' user view
+            val snapshot = firestore.collection("history")
                 .get()
                 .await()
 
@@ -59,7 +59,7 @@ class HistoryRepository(
     // Fungsi untuk mendapatkan semua AdminHistoryRecord dari koleksi 'adminhistory' (Admin View)
     fun getAllAdminHistoryRecords(): Flow<List<AdminHistoryRecord>> = flow {
         try {
-            val snapshot = firestore.collection("adminhistory") // Koleksi 'adminhistory' admin view
+            val snapshot = firestore.collection("adminhistory")
                 .get()
                 .await()
 
