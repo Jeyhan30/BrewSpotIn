@@ -1,10 +1,10 @@
 // File: app/src/main/java/com/example.brewspotin/presentation/viewmodel/MenuViewModel.kt
-package com.example.brewspotin.ui.screen.menu // <-- Pastikan package ini!
+package com.example.brewspotin.ui.screen.menu
 
 import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.brewspotin.data.model.MenuItem // <-- Import MenuItem dari lokasi yang benar
+import com.example.brewspotin.data.model.MenuItem
 import com.google.firebase.firestore.FirebaseFirestore
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
@@ -35,12 +35,8 @@ class MenuViewModel : ViewModel() {
                     .await()
 
                 val items = snapshot.documents.mapNotNull { doc ->
-                    // ********** PERBAIKAN DI SINI **********
-                    val menuItem = doc.toObject(MenuItem::class.java) // toObject sekarang harusnya bekerja dengan baik
-                    // @DocumentId di MenuItem akan otomatis mengisi properti 'id'
-                    // Tidak perlu menuItem?.copy(name = doc.id) lagi
-                    menuItem // Cukup kembalikan objek yang sudah dipetakan
-                    // ****************************************
+                    val menuItem = doc.toObject(MenuItem::class.java)
+                    menuItem
                 }
                 _menuItems.value = items
                 Log.d("MenuViewModel", "Menu items loaded: ${items.size}")
@@ -57,10 +53,6 @@ class MenuViewModel : ViewModel() {
     fun addMenuItem(menuItem: MenuItem, onComplete: (Boolean, String?) -> Unit) {
         viewModelScope.launch {
             try {
-                // Saat menambah, Firestore akan otomatis membuat ID jika tidak ditentukan.
-                // Jika kamu ingin ID dokumennya adalah nama menu (seperti yang pernah kita bahas),
-                // maka perlu diubah menjadi: .document(menuItem.name).set(menuItem)
-                // Tapi untuk saat ini, kita ikuti add() yang otomatis membuat ID.
                 firestore.collection("Cafe")
                     .document("Jokopi")
                     .collection("menu")
